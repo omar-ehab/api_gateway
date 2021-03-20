@@ -18,27 +18,37 @@ const app = express();
 app.use(express.json());
 
 ///////////////////////////////////////////////////DOCTOR///////////////////////////////////////////////////
-app.get('/doctors', (req, res) => {
+app.get('/doctors', async (req, res) => {
   const docService = new DoctorService();
-  return res.send(docService.getUrl("index"));
+  const data = docService.getUrl("index");
+  return res.send(data);
 })
 
-app.get('/showOneDoctor', (req, res) => {
+app.get('/doctors/:id', async (req, res) => {
   const docService = new DoctorService();
-  return res.send(docService.getUrl("show"));
-})
+  try {
+    const response = await docService.fetchData("show", req.params)
+    if(response){
+      res.send(response.data);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch(err){
+    res.send(err.message);
+  }
+});
 
-app.post('/storeDoctor', (req, res) => {
+app.post('/doctors', async (req, res) => {
   const docService = new DoctorService();
   return res.send(docService.getUrl("store"));
 })
 
-app.put('/updateDoctor', (req, res) => {
+app.put('/doctors/:id/update', async (req, res) => {
   const docService = new DoctorService();
   return res.send(docService.getUrl("update"));
 })
 
-app.delete('/deleteDoctor', (req, res) => {
+app.delete('/doctors/:id/destroy', async (req, res) => {
   const docService = new DoctorService();
   return res.send(docService.getUrl("destroy"));
 })
