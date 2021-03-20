@@ -33,8 +33,9 @@ class DoctorService {
     return replacingPathParams(host, originalPath, params);
   }
 
-  fetchData(pathName, params = {}) {
+  fetchData(pathName, params = {}, body = {}) {
     const config = this.getUrl(pathName, params);
+    config['body'] = {...body}
     if(config === 404)
       return false;
     return axios(config);

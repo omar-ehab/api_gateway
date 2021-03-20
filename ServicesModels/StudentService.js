@@ -1,3 +1,5 @@
+import { replacingPathParams } from '../helpers/url.js';
+import axios from 'axios';
 class StudentService {
     constructor() {
       this.pathes = {
@@ -24,14 +26,19 @@ class StudentService {
       };
     }
   
-    getUrl(pathName) {
+    getUrl(pathName, params = {}) {
       //this host will come from service registery
       const host = "http://127.0.0.1:5000";
-      const path = this.pathes[pathName];
-      return {
-        method: path.method,
-        url:`${host}${path.path}`
-      }
+      const originalPath = this.pathes[pathName];
+      return replacingPathParams(host, originalPath, params);
+    }
+
+    fetchData(pathName, params = {}, body = {}) {
+      const config = this.getUrl(pathName, params);
+      config['body'] = {...body}
+      if(config === 404)
+        return false;
+      return axios(config);
     }
   }
   
