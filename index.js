@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
+import ServiceRegistryController from '../controllers/ServiceRegistryController.js';
+import ServiceRegistry from './service_registry/ServiceRegistry.js';
 import { doctorRoutes } from './routes/doctors.js';
 import { studnetsRoutes } from './routes/students.js';
 import MarketService from './ServicesModels/MarketService.js';
@@ -11,6 +13,8 @@ import SheetService from './ServicesModels/SheetService.js';
 import WalletService from './ServicesModels/WalletService.js';
 import PurchaseService from './ServicesModels/PurchaseService.js';
 dotenv.config();
+const serviceRegistry = new ServiceRegistry();
+const serviceRegistryController = new ServiceRegistryController(serviceRegistry);
 
 
 const PORT = process.env.PORT || 3000;
@@ -146,6 +150,10 @@ app.put('/convertPoints', (req, res) => {
   const purchaseService = new PurchaseService();
   return res.send(purchaseService.getUrl("convertPoints"));
 });
+
+////////////////////////////////////////////////SERVICE REGISTRY///////////////////////////////////////////////////////
+app.put('/register/:name/:version/:port', serviceRegistryController.store);
+app.delete('/unregister/:name/:version/:port', serviceRegistryController.destroy);
 
 
 app.listen(PORT, () => {
