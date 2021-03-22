@@ -2,7 +2,6 @@ import { replacingPathParams } from '../helpers/url.js';
 import axios from 'axios';
 class DoctorService {
   constructor(serviceRegistry) {
-    console.log(serviceRegistry);
     this.serviceRegistry = serviceRegistry
     this.pathes = {
       index: {
@@ -29,19 +28,23 @@ class DoctorService {
   }
 
   getUrl(pathName, params = {}) {
-    const { ip, port } = this.serviceRegistry.get('doctors_service', '1');
-    const host = `http://${ip}:${port}`;
-    const originalPath = this.pathes[pathName];
+    try{
+      const { ip, port } = this.serviceRegistry.get('doctors_service', '1');
+      const host = `http://${ip}:${port}`;
+      const originalPath = this.pathes[pathName];
+    } catch(err){
+      return 404;
+    }
+    
     return replacingPathParams(host, originalPath, params);
   }
 
   fetchData(pathName, params = {}, body = {}) {
 
     const config = this.getUrl(pathName, params);
-    
-    config['body'] = {...body}
     if(config === 404)
       return false;
+    config['body'] = {...body}
     return axios(config);
   }
 }

@@ -1,7 +1,7 @@
 import DoctorService from '../ServicesModels/DoctorService.js';
 class DoctoresController{
-  constructor(){
-    this.docService = new DoctorService();
+  constructor(serviceRegistry){
+    this.docService = new DoctorService(serviceRegistry);
   }
 
   index = async (req, res) => {

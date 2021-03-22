@@ -1,16 +1,26 @@
 import express from 'express';
 import DoctoresController from '../controllers/DoctorsController.js';
-const router = express.Router();
-const controller = new DoctoresController();
 
-router.get('/', controller.index);
 
-router.get('/:id', controller.show);
+class DoctorRoutes {
+  constructor(serviceRegistry) {
+    this.router = express.Router();
+    this.controller = new DoctoresController(serviceRegistry);
+  }
+  
+  routes = () => {
+    this.router.get('/', this.controller.index);
 
-router.post('/', controller.store);
+    this.router.get('/:id', this.controller.show);
 
-router.put('/:id/update', controller.update);
+    this.router.post('/', this.controller.store);
 
-router.delete('/:id/destroy', controller.destroy);
+    this.router.put('/:id/update', this.controller.update);
 
-export {router as doctorRoutes}
+    this.router.delete('/:id/destroy', this.controller.destroy);
+
+    return this.router;
+  }
+}
+
+export default DoctorRoutes;

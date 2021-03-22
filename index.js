@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
-import ServiceRegistryController from './controllers/ServiceRegistryController.js';
 import ServiceRegistry from './service_registry/ServiceRegistry.js';
-import { doctorRoutes } from './routes/doctors.js';
+import DoctorRoutes from './routes/doctors.js';
+import ServiceRegistryRoutes from './routes/ServiceRegistry.js';
 import { studnetsRoutes } from './routes/students.js';
 import { marketRoutes } from './routes/markets.js';
 import { labRoutes } from './routes/labs.js';
@@ -15,19 +15,16 @@ import { PurchaseRoutes } from './routes/Purchase.js';
 
 dotenv.config();
 const serviceRegistry = new ServiceRegistry();
-const serviceRegistryController = new ServiceRegistryController(serviceRegistry);
-
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
 
-// http:localhost:3000/market/
 
 ///////////////////////////////////////////////////DOCTOR///////////////////////////////////////////////////
 
-app.use('/doctors', doctorRoutes);
+app.use('/doctors', new DoctorRoutes(serviceRegistry).routes());
 
 ///////////////////////////////////////////////////STAFF///////////////////////////////////////////////////
 
@@ -66,11 +63,7 @@ app.use('/Purchase', PurchaseRoutes);
 
 ////////////////////////////////////////////////SERVICE REGISTRY///////////////////////////////////////////////////////
 
-
-
-app.put('/register/:name/:version/:port', serviceRegistryController.store);
-
-app.delete('/unregister/:name/:version/:port', serviceRegistryController.destroy);
+app.use(new ServiceRegistryRoutes(serviceRegistry).routes());
 
 
 
