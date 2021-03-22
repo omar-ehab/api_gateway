@@ -1,27 +1,12 @@
 import { replacingPathParams } from '../helpers/url.js';
 import axios from 'axios';
-class LabService {
+class ExcelSheetService {
   constructor() {
     this.pathes = {
-      index: {
+     
+      generate: {
         method: "get",
-        path: "/"
-      },
-      show: {
-        method: "get",
-        path: '/:id'
-      },
-      store: {
-        method: "post",
-        path: '/'
-      },
-      update: {
-        method: "put",
-        path: '/:id'
-      },
-      destroy: {
-        method: "delete",
-        path: '/:id'
+        path: '/:Qrid'
       },
     };
   }
@@ -42,4 +27,4 @@ class LabService {
   }
 }
 
-export default LabService
+export default ExcelSheetService
