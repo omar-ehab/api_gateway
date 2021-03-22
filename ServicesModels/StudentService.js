@@ -30,14 +30,16 @@ class StudentService {
       //this host will come from service registery
       const host = "http://127.0.0.1:5000";
       const originalPath = this.pathes[pathName];
+      console.log(originalPath);
       return replacingPathParams(host, originalPath, params);
     }
 
     fetchData(pathName, params = {}, body = {}) {
       const config = this.getUrl(pathName, params);
-      config['body'] = {...body}
       if(config === 404)
         return false;
+
+      config['body'] = {...body}
       return axios(config);
     }
   }
