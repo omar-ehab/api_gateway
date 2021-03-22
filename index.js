@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
-import ServiceRegistryController from '../controllers/ServiceRegistryController.js';
+import ServiceRegistryController from './controllers/ServiceRegistryController.js';
 import ServiceRegistry from './service_registry/ServiceRegistry.js';
 import { doctorRoutes } from './routes/doctors.js';
 import { studnetsRoutes } from './routes/students.js';
