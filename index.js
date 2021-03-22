@@ -7,14 +7,16 @@ import { marketRoutes } from './routes/markets.js';
 import { labRoutes } from './routes/labs.js';
 import { staffRoutes } from './routes/staff.js';
 import { QrRoutes } from './routes/Qr.js';
+import { ExcelSheetRoutes } from './routes/ExcelSheet.js';
+import { WalletRoutes } from './routes/Wallet.js';
+import { PurchaseRoutes } from './routes/Purchase.js';
 //import MarketService from './ServicesModels/MarketService.js';
 //import LabService from './ServicesModels/LabService.js';
 //import StaffService from './ServicesModels/StaffService.js';
 //import QrService from './ServicesModels/QrService.js';
-
-import SheetService from './ServicesModels/SheetService.js';
-import WalletService from './ServicesModels/WalletService.js';
-import PurchaseService from './ServicesModels/PurchaseService.js';
+//import SheetService from './ServicesModels/SheetService.js';
+//import WalletService from './ServicesModels/WalletService.js';
+//import PurchaseService from './ServicesModels/PurchaseService.js';
 dotenv.config();
 
 
@@ -122,13 +124,15 @@ app.use('/QR', QrRoutes);
 });*/
 
 ////////////////////////////////////////////////EXCEL SHEET///////////////////////////////////////////////////////
-app.get('/generateExcelSheet', (req, res) => {
+app.use('/ExcelSheet', ExcelSheetRoutes);
+/*app.get('/generateExcelSheet', (req, res) => {
   const sheetService = new SheetService();
   return res.send(sheetService.getUrl("generate"));
-});
+});*/
 
 ////////////////////////////////////////////////WALLET///////////////////////////////////////////////////////
-app.get('/showOneWallet', (req, res) => {
+app.use('/Wallet', WalletRoutes);
+/*app.get('/showOneWallet', (req, res) => {
   const walletService = new WalletService();
   return res.send(walletService.getUrl("show"));
 });
@@ -144,10 +148,11 @@ app.get('/checkBalance', (req, res) => {
 app.post('/depositeInStudentWallet', (req, res) => {
   const walletService = new WalletService();
   return res.send(walletService.getUrl("deposite"));
-});
+});*/
 
 ////////////////////////////////////////////////PURCHASE///////////////////////////////////////////////////////
-app.post('/purchase', (req, res) => {
+app.use('/Purchase', PurchaseRoutes);
+/*app.post('/purchase', (req, res) => {
   const purchaseService = new PurchaseService();
   return res.send(purchaseService.getUrl("purchase"));
 });
@@ -155,7 +160,7 @@ app.post('/purchase', (req, res) => {
 app.put('/convertPoints', (req, res) => {
   const purchaseService = new PurchaseService();
   return res.send(purchaseService.getUrl("convertPoints"));
-});
+});*/
 
 
 app.listen(PORT, () => {

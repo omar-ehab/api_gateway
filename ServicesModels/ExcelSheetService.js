@@ -1,15 +1,12 @@
 import { replacingPathParams } from '../helpers/url.js';
 import axios from 'axios';
-class PurchaseService {
+class ExcelSheetService {
   constructor() {
     this.pathes = {
-      convertPoints: {
-        method: "put",
-        path: '/convertPoints'
-      },
-      purchase: {
-        method: "post",
-        path: '/:student_id/purchase'
+     
+      generate: {
+        method: "get",
+        path: '/:Qrid'
       },
     };
   }
@@ -30,6 +27,4 @@ class PurchaseService {
   }
 }
 
-export default PurchaseService
-
-  
+export default ExcelSheetService
