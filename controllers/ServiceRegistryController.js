@@ -7,6 +7,7 @@ class ServiceRegistryController {
   store = async (req, res) => {
     const { name, version, port } = req.params;
     let ip =  req.connection.remoteAddress;
+
     if (ip.substr(0, 7) == "::ffff:") {
       ip = ip.substr(7)
     }

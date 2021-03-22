@@ -1,4 +1,5 @@
 import semver from 'semver';
+
 class ServiceRegistry {
 
   constructor() {

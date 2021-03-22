@@ -23,6 +23,8 @@ const app = express();
 
 app.use(express.json());
 
+// http:localhost:3000/market/
+
 ///////////////////////////////////////////////////DOCTOR///////////////////////////////////////////////////
 
 app.use('/doctors', doctorRoutes);
@@ -63,8 +65,14 @@ app.use('/Purchase', PurchaseRoutes);
 
 
 ////////////////////////////////////////////////SERVICE REGISTRY///////////////////////////////////////////////////////
+
+
+
 app.put('/register/:name/:version/:port', serviceRegistryController.store);
+
 app.delete('/unregister/:name/:version/:port', serviceRegistryController.destroy);
+
+
 
 
 app.listen(PORT, () => {
