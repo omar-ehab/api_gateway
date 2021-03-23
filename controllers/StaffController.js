@@ -1,7 +1,7 @@
 import StaffService from '../ServicesModels/StaffService.js';
 class StaffController{
-  constructor(){
-    this.staffService = new StaffService();
+  constructor(serviceRegistry){
+    this.staffService = new StaffService(serviceRegistry);
   }
 
   index = async (req, res) => {

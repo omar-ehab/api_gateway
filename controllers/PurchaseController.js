@@ -1,11 +1,11 @@
 import PurchaseService from '../ServicesModels/PurchaseService.js';
 class PurchaseController{
-  constructor(){
-    this.PurchaseService = new PurchaseService();
+  constructor(serviceRegistry){
+    this.PurchaseService = new PurchaseService(serviceRegistry);
   }
   convertPoints = async (req, res) => {
     try {
-      const response = await this.PurchaseService.fetchData("convertPoints", {} ,req.body)  // ??
+      const response = await this.PurchaseService.fetchData("convertPoints", {}, req.body)  // ??
       if(response){
         res.send(response.data);
       } else {
@@ -18,7 +18,7 @@ class PurchaseController{
 
   purchase = async (req, res) => {
     try {
-      const response = await this.PurchaseService.fetchData("purchase", req.params, req.body) // ??
+      const response = await this.PurchaseService.fetchData("purchase", req.params, req.body) // params (:student_id) --- body (amount, other_id)
       if(response){
         res.send(response.data);
       } else {

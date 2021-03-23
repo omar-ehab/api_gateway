@@ -1,7 +1,7 @@
 import MarketService from '../ServicesModels/MarketService.js';
 class MarketsController{
-  constructor(){
-    this.marketService = new MarketService();
+  constructor(serviceRegistry){
+    this.marketService = new MarketService(serviceRegistry);
   }
 
   index = async (req, res) => {

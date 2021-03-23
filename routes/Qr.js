@@ -1,11 +1,23 @@
 import express from 'express';
 import QrController from '../controllers/QrController.js';
-const router = express.Router();
-const controller = new QrController();
+
+class QrRoutes {
+    constructor(serviceRegistry) {
+      this.router = express.Router();
+      this.controller = new QrController(serviceRegistry);
+    }
+    
+    routes = () => {
+    this.router.post('/',this.controller.store);
+  
+      return this.router;
+    }
+  }
+  
+  export default QrRoutes;
 
 
 
-router.post('/', controller.store);
 
 
-export {router as QrRoutes}
+

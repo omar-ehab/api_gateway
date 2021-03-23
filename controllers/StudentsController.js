@@ -1,7 +1,7 @@
 import StudentService from '../ServicesModels/StudentService.js';
 class StudentsController{
-  constructor(){
-    this.studentService = new StudentService();
+  constructor(serviceRegistry){
+    this.studentService = new StudentService(serviceRegistry);
   }
 
   index = async (req, res) => {
