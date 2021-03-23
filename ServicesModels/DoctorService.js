@@ -32,19 +32,19 @@ class DoctorService {
       const { ip, port } = this.serviceRegistry.get('doctors_service', '1');
       const host = `http://${ip}:${port}`;
       const originalPath = this.pathes[pathName];
+      return replacingPathParams(host, originalPath, params);
     } catch(err){
       return 404;
     }
-    
-    return replacingPathParams(host, originalPath, params);
   }
 
   fetchData(pathName, params = {}, body = {}) {
 
     const config = this.getUrl(pathName, params);
+
     if(config === 404)
       return false;
-    config['body'] = {...body}
+    config['data'] = {...body}
     return axios(config);
   }
 }

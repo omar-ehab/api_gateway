@@ -1,7 +1,7 @@
 import ExcelSheetService from '../ServicesModels/ExcelSheetService.js';
 class ExcelSheetController{
-  constructor(){
-    this.excelSheetService = new ExcelSheetService();
+  constructor(serviceRegistry){
+    this.excelSheetService = new ExcelSheetService(serviceRegistry);
   }
 
   generate = async (req, res) => {

@@ -1,7 +1,7 @@
 import LabService from '../ServicesModels/LabService.js';
 class LabsController{
-  constructor(){
-    this.labService = new LabService();
+  constructor(serviceRegistry){
+    this.labService = new LabService(serviceRegistry);
   }
 
   index = async (req, res) => {

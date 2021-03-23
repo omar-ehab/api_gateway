@@ -1,6 +1,32 @@
 import express from 'express';
 import MarketsController from '../controllers/MarketsController.js';
-const router = express.Router();
+
+class marketRoutes {
+    constructor(serviceRegistry) {
+      this.router = express.Router();
+      this.controller = new MarketsController(serviceRegistry);
+    }
+    
+    routes = () => {
+      this.router.get('/', this.controller.index);
+  
+      this.router.get('/:id', this.controller.show);
+  
+      this.router.post('/', this.controller.store);
+  
+      this.router.put('/:id/update', this.controller.update);
+  
+      this.router.delete('/:id/destroy', this.controller.destroy);
+
+      this.router.delete('/:id/deposite', this.controller.deposite);
+  
+      return this.router;
+    }
+  }
+  
+  export default marketRoutes;
+
+/*const router = express.Router();
 const controller = new MarketsController();
 
 router.get('/', controller.index);
@@ -15,4 +41,4 @@ router.delete('/:id/destroy', controller.destroy);
 
 router.post('/:id/deposite', controller.deposite);
 
-export {router as marketRoutes}
+export {router as marketRoutes}*/

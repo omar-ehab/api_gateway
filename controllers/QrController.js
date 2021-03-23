@@ -1,7 +1,7 @@
 import QrService from '../ServicesModels/QrService.js';
 class QrController{
-  constructor(){
-    this.QrService = new QrService();
+  constructor(serviceRegistry){
+    this.QrService = new QrService(serviceRegistry);
   }
 
   store = async (req, res) => {

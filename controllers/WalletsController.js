@@ -1,7 +1,7 @@
 import WalletService from '../ServicesModels/WalletService.js';
 class WalletsController{
-  constructor(){
-    this.walletService = new WalletService();
+  constructor(serviceRegistry){
+    this.walletService = new WalletService(serviceRegistry);
   }
 
   show = async (req, res) => {

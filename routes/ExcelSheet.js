@@ -1,9 +1,18 @@
 import express from 'express';
 import ExcelSheetController from '../controllers/ExcelSheetController.js';
-const router = express.Router();
-const controller = new ExcelSheetController();
-
-router.get('/:Qrid', controller.generate);
 
 
-export {router as ExcelSheetRoutes}
+class ExcelSheetRoutes {
+    constructor(serviceRegistry) {
+      this.router = express.Router();
+      this.controller = new ExcelSheetController(serviceRegistry);
+    }
+    
+    routes = () => {
+        this.router.get('/:Qrid',this.controller.generate);
+  
+      return this.router;
+    }
+  }
+
+  export default ExcelSheetRoutes;

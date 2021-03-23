@@ -4,7 +4,7 @@ class ServiceRegistry {
 
   constructor() {
     this.services = {};
-    this.timeout = 30; //in seconds
+    this.timeout = 10000; //in seconds
   }
 
   get(name, version) {

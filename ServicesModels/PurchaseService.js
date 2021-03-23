@@ -1,7 +1,8 @@
 import { replacingPathParams } from '../helpers/url.js';
 import axios from 'axios';
 class PurchaseService {
-  constructor() {
+  constructor(serviceRegistry) {
+    this.serviceRegistry = serviceRegistry
     this.pathes = {
       convertPoints: {
         method: "put",
@@ -15,17 +16,23 @@ class PurchaseService {
   }
 
   getUrl(pathName, params = {}) {
-    //this host will come from service registery
-    const host = "http://127.0.0.1:5000";
-    const originalPath = this.pathes[pathName];
-    return replacingPathParams(host, originalPath, params);
+    try{
+      const { ip, port } = this.serviceRegistry.get('purchase_service', '1');
+      const host = `http://${ip}:${port}`;
+      const originalPath = this.pathes[pathName];
+      return replacingPathParams(host, originalPath, params);
+    } catch(err){
+      return 404;
+    }
   }
 
   fetchData(pathName, params = {}, body = {}) {
+
     const config = this.getUrl(pathName, params);
-    config['body'] = {...body}
+
     if(config === 404)
       return false;
+    config['data'] = {...body}
     return axios(config);
   }
 }
