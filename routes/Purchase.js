@@ -17,17 +17,3 @@ class PurchaseRoutes {
   }
   
   export default PurchaseRoutes;
-
-
-
-
-
-/*const router = express.Router();
-const controller = new PurchaseController();
-
-router.put('/convertPoints', controller.convertPoints);
-
-router.post('/:student_id/purchase', controller.purchase);
-
-
-export {router as PurchaseRoutes}*/

@@ -25,22 +25,3 @@ class staffRoutes {
   }
   
   export default staffRoutes;
-
-
-
-
-
-/*const router = express.Router();
-const controller = new StaffController();
-
-router.get('/', controller.index);
-
-router.get('/:id', controller.show);
-
-router.post('/', controller.store);
-
-router.put('/:id/update', controller.update);
-
-router.delete('/:id/destroy', controller.destroy);
-
-export {router as staffRoutes}*/

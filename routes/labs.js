@@ -23,12 +23,3 @@ class labRoutes {
   }
   export default labRoutes;
   
-/*  router.get('/', controller.index);
-
-router.get('/:id', controller.show);
-
-router.post('/', controller.store);
-
-router.put('/:id/update', controller.update);
-
-router.delete('/:id/destroy', controller.destroy);*/
