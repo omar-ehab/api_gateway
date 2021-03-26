@@ -1,14 +1,18 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
+import cors from 'cors';
+import createError from 'http-errors';
 
 import ServiceRegistry from './service_registry/ServiceRegistry.js';
+import AuthRoutes from './routes/auth/index.js';
 import DoctorRoutes from './routes/doctors.js';
 import ServiceRegistryRoutes from './routes/ServiceRegistry.js';
-import  studnetsRoutes  from './routes/students.js';
-import  marketRoutes from './routes/markets.js';
-import  labRoutes  from './routes/labs.js';
-import  staffRoutes from './routes/staff.js';
-import  QrRoutes  from './routes/Qr.js';
+import studnetsRoutes  from './routes/students.js';
+import marketRoutes from './routes/markets.js';
+import labRoutes  from './routes/labs.js';
+import staffRoutes from './routes/staff.js';
+import QrRoutes  from './routes/Qr.js';
 import ExcelSheetRoutes  from './routes/ExcelSheet.js';
 import WalletRoutes from './routes/Wallet.js';
 import PurchaseRoutes from './routes/Purchase.js';
@@ -20,7 +24,12 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
+app.use(helmet());
+app.use(cors());
 
+///////////////////////////////////////////////////DOCTOR///////////////////////////////////////////////////
+
+app.use('/auth', new AuthRoutes(serviceRegistry).routes());
 
 ///////////////////////////////////////////////////DOCTOR///////////////////////////////////////////////////
 
@@ -66,6 +75,21 @@ app.use('/Purchase', new PurchaseRoutes(serviceRegistry).routes());
 app.use(new ServiceRegistryRoutes(serviceRegistry).routes());
 
 
+//404 error
+app.use(async (req, res, next) => {
+  next(createError.NotFound());
+});
+
+//other errors handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500)
+  res.send({
+      error: {
+      status: err.status || 500,
+      message: err.message,
+      }
+  });
+});
 
 
 app.listen(PORT, () => {
