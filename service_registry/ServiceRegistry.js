@@ -42,16 +42,17 @@ class ServiceRegistry {
 
   async unregister(name, version, ip, port)
   {
-    this.services = localstorage.getItem('services');
+    this.services = JSON.parse(localstorage.getItem('services'));
     const key = name + version + ip + port;
     delete this.services[key];
-    localstorage.setItem('services', JSON.stringify(this.services));
+    await localstorage.setItem("services", JSON.stringify(this.services));
     console.log(`Deleted Service ${name}, version: ${version}, at ${ip}:${port}`);
     return key;
   }
 
+
   async cleanup() {
-    this.services = localstorage.getItem('services');
+    this.services = JSON.parse(localstorage.getItem('services'));
     const now = Math.floor(new Date() / 1000);
     await Object.keys(this.services).forEach(key => {
       if(this.services[key].timestamp + this.timeout < now) {
