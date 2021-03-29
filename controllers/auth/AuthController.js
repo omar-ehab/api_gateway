@@ -1,6 +1,8 @@
 import createError from 'http-errors';
 import User from '../../models/User.js';
 import { authSchema } from '../../helpers/validation_schema.js';
+import client from '../../helpers/init_redis.js';
+import StudentService from '../../ServicesModels/StudentService.js';
 import {
     signAccessToken,
     signRefreshToken,
@@ -10,13 +12,17 @@ import {
 class AuthController {
   constructor(serviceRegistry){
     this.serviceRegistry = serviceRegistry;
+    this.studentService = StudentService(serviceRegistry);
   }
 
   login = async (req, res, next) => {
     try {
         const result = await authSchema.validateAsync(req.body);
         const user = null; //get user
-        if (!user) throw createError.NotFound('These credentials do not match our records.')
+        // if(type === 'student'){
+        //   await this.studentService.fetchData("updateFcmCode", {email: result.email}, {fcm_code: result.fcm_code});
+        // }
+        if (!user) throw createError.Unauthorized('These credentials do not match our records.')
   
         const isMatch = await user.isValidPassword(result.password)
         if (!isMatch)
@@ -47,9 +53,9 @@ class AuthController {
           console.log(val);
           res.sendStatus(204);
         })
-      } catch (error) {
-        next(error)
-      }  
+    } catch (error) {
+      next(error)
+    }  
   }
 
   refresh = async (req, res, next) => {

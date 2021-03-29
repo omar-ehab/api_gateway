@@ -7,6 +7,7 @@ class WalletsController{
   show = async (req, res) => {
     try {
       const response = await this.walletService.fetchData("show", req.params)
+      // req to get history
       if(response){
         res.send(response.data);
       } else {
