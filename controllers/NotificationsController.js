@@ -24,7 +24,7 @@ class NotificationsController{
       if(in_app_response){
           res.json({success:true, message: "notification sent successfully"});
       } else {
-        res.sendStatus(404);
+        res.sendStatus(500);
       }
     } catch(err){
       res.send(err.message);
@@ -37,7 +37,7 @@ class NotificationsController{
       if(response?.data.success) {
           res.json({success:true, message: "notification sent successfully"});
       } else {
-        res.sendStatus(404);
+        res.sendStatus(500);
       }
     } catch(err){
       res.send(err.message);
