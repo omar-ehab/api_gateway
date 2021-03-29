@@ -12,7 +12,7 @@ import {
 class AuthController {
   constructor(serviceRegistry){
     this.serviceRegistry = serviceRegistry;
-    this.studentService = StudentService(serviceRegistry);
+    this.studentService = new StudentService(serviceRegistry);
   }
 
   login = async (req, res, next) => {
