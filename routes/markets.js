@@ -18,7 +18,10 @@ class marketRoutes {
   
       this.router.delete('/:id/destroy', this.controller.destroy);
 
-      this.router.delete('/:id/deposite', this.controller.deposite);
+      this.router.post('/:id/deposit', this.controller.deposit);
+
+      this.router.post('/:id/withdraw', this.controller.withdraw);
+
   
       return this.router;
     }

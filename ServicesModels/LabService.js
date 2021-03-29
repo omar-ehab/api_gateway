@@ -4,25 +4,17 @@ class LabService {
   constructor(serviceRegistry) {
     this.serviceRegistry = serviceRegistry
     this.pathes = {
-      index: {
-        method: "get",
-        path: "/"
-      },
-      show: {
-        method: "get",
-        path: '/:id'
-      },
-      store: {
+      store_access: {
         method: "post",
-        path: '/'
+        path: "/labs/store_access_log"
       },
-      update: {
-        method: "put",
-        path: '/:id'
+      get_distincet_labs: {
+        method: "get",
+        path: '/labs/'
       },
-      destroy: {
-        method: "delete",
-        path: '/:id'
+      download_excel: {
+        method: "get",
+        path: '/labs/download_excel/:lab_id'
       },
     };
   }

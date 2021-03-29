@@ -13,6 +13,8 @@ class staffRoutes {
         this.router.get('/', this.controller.index);
 
         this.router.get('/:id', this.controller.show);
+
+        this.router.get('/:email/read_by_email', this.controller.findByEmail);
         
         this.router.post('/', this.controller.store);
         

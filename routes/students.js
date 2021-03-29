@@ -13,13 +13,15 @@ class studnetsRoutes {
     routes = () => {
         this.router.get('/', this.controller.index);
 
-        this.router.get('/:id', this.controller.show);
+        this.router.get('/:card_id', this.controller.show);
         
         this.router.post('/', this.controller.store);
         
-        this.router.put('/:id/update', this.controller.update);
+        this.router.get('/:email/read_by_email', this.controller.findByEmail);
         
-        this.router.delete('/:id/destroy', this.controller.destroy);
+        this.router.put('/:card_id/update', this.controller.update);
+        
+        this.router.delete('/:card_id/destroy', this.controller.destroy);
         
       return this.router;
     }

@@ -29,6 +29,18 @@ class StaffController{
       res.send(err.message);
     }
   }
+  findByEmail  = async (req, res) => {
+    try {
+      const response = await this.staffService.fetchData("findByEmail", req.params)
+      if(response){
+        res.send(response.data);
+      } else {
+        res.sendStatus(404);
+      }
+    } catch(err){
+      res.send(err.message);
+    }
+  }
   
   store = async (req, res) => {
     try {

@@ -6,30 +6,38 @@ class StudentService {
       this.pathes = {
         index: {
           method: "get",
-          path: "/"
+          path: "/students"
         },
         show: {
           method: "get",
-          path: '/:id'
+          path: '/students/:card_id'
+        },
+        findByEmail: {
+          method: "get",
+          path: '/students/:email/read_by_email'
         },
         store: {
           method: "post",
-          path: '/'
+          path: '/students'
         },
         update: {
           method: "put",
-          path: '/:id'
+          path: '/students/:card_id/update'
         },
         destroy: {
           method: "delete",
-          path: '/:id'
+          path: '/students/:card_id/destroy'
+        },
+        updateFcmCode: {
+          method: "put",
+          path: '/students/:email/update_fcm'
         },
       };
     }
   
-    getUrl(pathName, params = {}) {
+   async getUrl(pathName, params = {}) {
       try{
-        const { ip, port } = this.serviceRegistry.get('students_service', '1');
+        const { ip, port } = await this.serviceRegistry.get('students_service', '1');
         const host = `http://${ip}:${port}`;
         const originalPath = this.pathes[pathName];
         return replacingPathParams(host, originalPath, params);
@@ -38,9 +46,9 @@ class StudentService {
       }
     }
   
-    fetchData(pathName, params = {}, body = {}) {
+    async fetchData(pathName, params = {}, body = {}) {
   
-      const config = this.getUrl(pathName, params);
+      const config = await this.getUrl(pathName, params);
   
       if(config === 404)
         return false;

@@ -1,4 +1,5 @@
 import DoctorService from '../ServicesModels/DoctorService.js';
+import bcrypt from 'bcrypt';
 class DoctoresController{
   constructor(serviceRegistry){
     this.docService = new DoctorService(serviceRegistry);
@@ -20,18 +21,20 @@ class DoctoresController{
   show = async (req, res) => {
     try {
       const response = await this.docService.fetchData("show", req.params)
+      console.log(response.data);
       if(response){
         res.send(response.data);
       } else {
         res.sendStatus(404);
       }
     } catch(err){
-      res.send(err.message);
+      res.send(err.response.data);
     }
   }
   
   store = async (req, res) => {
     try {
+      req.body.password = bcrypt.hashSync(req.body.password, 10);
       const response = await this.docService.fetchData("store", {}, req.body)
       if(response){
         res.send(response.data);
@@ -45,6 +48,11 @@ class DoctoresController{
 
   update = async (req, res) => {
     try {
+      //get user
+      //compare user password with req.body.old_password
+      //if ok update password
+      //if not ok send error back
+      // req.body.password = bcrypt.hashSync(req.body.password, 10);
       const response = await this.docService.fetchData("update", req.params, req.body)
       if(response){
         res.send(response.data);
@@ -68,6 +76,7 @@ class DoctoresController{
       res.send(err.message);
     }
   }
+
 }
 
 export default DoctoresController;

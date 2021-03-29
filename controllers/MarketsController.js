@@ -67,9 +67,9 @@ class MarketsController{
       res.send(err.message);
     }
   }
-  deposite = async (req, res) => {
+  deposit = async (req, res) => {
     try {
-      const response = await this.marketService.fetchData("deposite", req.params, req.body)
+      const response = await this.marketService.fetchData("deposit", req.params, req.body)
       if(response){
         res.send(response.data);
       } else {
@@ -79,7 +79,21 @@ class MarketsController{
       res.send(err.message);
     }
   }
+  withdraw = async (req, res) => {
+    try {
+      const response = await this.marketService.fetchData("withdraw", req.params, req.body)
+      if(response){
+        res.send(response.data);
+      } else {
+        res.sendStatus(404);
+      }
+    } catch(err){
+      res.send(err.message);
+    }
+  }
+  
 }
+
 
 export default MarketsController;
 

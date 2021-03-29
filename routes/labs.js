@@ -9,14 +9,10 @@ class labRoutes {
     }
     
     routes = () => {
-      this.router.get('/', this.controller.index);
+      this.router.post('/store_access_log', this.controller.store_access);
   
-      this.router.get('/:id',this.controller.show);
-      this.router.post('/', this.controller.store);
-  
-      this.router.put('/:id/update', this.controller.update);
-  
-      this.router.delete('/:id/destroy', this.controller.destroy);
+      this.router.get('/',this.controller.get_distincet_labs);
+      this.router.get('/download_excel/:lab_id', this.controller.download_excel);
   
       return this.router;
     }

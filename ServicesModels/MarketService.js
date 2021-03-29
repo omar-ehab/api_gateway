@@ -6,34 +6,38 @@ class MarketService {
     this.pathes = {
       index: {
         method: "get",
-        path: "/"
+        path: "/markets"
       },
       show: {
         method: "get",
-        path: '/:id'
+        path: '/markets/:id'
       },
       store: {
         method: "post",
-        path: '/'
+        path: '/markets'
       },
       update: {
         method: "put",
-        path: '/:id'
+        path: '/markets/:id/update'
       },
       destroy: {
         method: "delete",
-        path: '/:id'
+        path: '/markets/:id/destroy'
       },
-      deposite: {
+      deposit: {
         method: "post",
-        path: '/:id'
+        path: '/markets/:id/deposit'
+      },
+      withdraw: {
+        method: "post",
+        path: '/markets/:id/withdraw'
       },
     };
   }
 
-  getUrl(pathName, params = {}) {
+  async getUrl(pathName, params = {}) {
     try{
-      const { ip, port } = this.serviceRegistry.get('markets_service', '1');
+      const { ip, port } = await this.serviceRegistry.get('markets_service', '1');
       const host = `http://${ip}:${port}`;
       const originalPath = this.pathes[pathName];
       return replacingPathParams(host, originalPath, params);
@@ -42,9 +46,9 @@ class MarketService {
     }
   }
 
-  fetchData(pathName, params = {}, body = {}) {
+  async fetchData(pathName, params = {}, body = {}) {
 
-    const config = this.getUrl(pathName, params);
+    const config = await this.getUrl(pathName, params);
 
     if(config === 404)
       return false;

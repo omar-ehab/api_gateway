@@ -14,11 +14,11 @@ client.on('ready', () => {
 })
 
 client.on('error', (err) => {
-  console.log(err.message)
+  //console.log(err.message)
 })
 
 client.on('end', () => {
-  console.log('Client disconnected from redis')
+  //console.log('Client disconnected from redis')
 })
 
 process.on('SIGINT', () => {
