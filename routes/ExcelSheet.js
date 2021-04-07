@@ -9,7 +9,8 @@ class ExcelSheetRoutes {
     }
     
     routes = () => {
-        this.router.get('/:Qrid',this.controller.generate);
+        this.router.post('/recordAttendance',this.controller.record);
+        this.router.get('/ExcelSheet',this.controller.generate);
   
       return this.router;
     }

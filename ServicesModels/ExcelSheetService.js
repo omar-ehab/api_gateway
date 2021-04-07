@@ -7,14 +7,20 @@ class ExcelSheetService {
      
       generate: {
         method: "get",
-        path: '/:Qrid'
+        path: '/attendance/ExcelSheet'
+      },
+      record: {
+        method: "post",
+        path: '/attendance/recordAttendance'
       },
     };
+
+  
   }
 
-  getUrl(pathName, params = {}) {
+  async getUrl(pathName, params = {}) {
     try{
-      const { ip, port } = this.serviceRegistry.get('ExcelSheets_service', '1');
+      const { ip, port } = await this.serviceRegistry.get('ExcelSheet_service', '1');
       const host = `http://${ip}:${port}`;
       const originalPath = this.pathes[pathName];
       return replacingPathParams(host, originalPath, params);
@@ -23,9 +29,9 @@ class ExcelSheetService {
     }
   }
 
-  fetchData(pathName, params = {}, body = {}) {
+  async fetchData(pathName, params = {}, body = {}) {
 
-    const config = this.getUrl(pathName, params);
+    const config = await this.getUrl(pathName, params);
 
     if(config === 404)
       return false;
