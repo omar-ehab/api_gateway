@@ -1,1 +1,1 @@
-{"notification_service1.0.0127.0.0.15000":{"timestamp":1617056068,"ip":"127.0.0.1","port":"5000","name":"notification_service","version":"1.0.0"},"markets_service1.0.0127.0.0.13004":{"timestamp":1617056074,"ip":"127.0.0.1","port":"3004","name":"markets_service","version":"1.0.0"}}
+{"QR_service1.0.0127.0.0.13006":{"timestamp":1617821282,"ip":"127.0.0.1","port":"3006","name":"QR_service","version":"1.0.0"}}

@@ -4,28 +4,59 @@ class WalletService {
   constructor(serviceRegistry) {
     this.serviceRegistry = serviceRegistry
     this.pathes = {
-      show: {
-        method: "get",
-        path: '/:studentId'
+      //////////////////////////////////////////////wallet///////////////////////////////////////////////////
+      create: {
+        method: "post",
+        path: '/wallets'
       },
-      checkBalance: {
+      getWalletByStudentId: {
         method: "get",
-        path: '/:student_id/check_balance'
+        path: '/wallets/:card_id'
       },
-      deposite: {
+      deposit: {
         method: "put",
-        path: '/wallet/:student_id/deposit'
+        path: '/wallets/:card_id/deposit'
       },
-      withDraw: {
+      withdraw: {
           method: "put",
-          path: '/wallet/:student_id/withDraw'
+          path: '/wallets/:card_id/withdraw'
         },
+      convertPoints: {
+         method: "put",
+         path: '/wallets/:card_id/convertPoints'
+        },
+
+        ///////////////////////////////////////////////transactions////////////////////////////////////////////
+        store: {
+          method: "post",
+          path: '/wallets/:wallet_id/storeTransaction'
+         },
+         show: {
+          method: "get",
+          path: '/wallets/:id/showTransaction'
+         },
+         accept: {
+          method: "put",
+          path: '/wallets/:id/acceptTransaction'
+         },
+         reject: {
+          method: "put",
+          path: '/wallets/:id/rejectTransaction'
+         },
+         studentTransactions: {
+          method: "get",
+          path: '/wallets/students/:student_id/Transaction'
+         },
+         otherTransactions: {
+          method: "get",
+          path: '/wallets/other/:other_id/Transaction'
+         },
     };
   }
 
-  getUrl(pathName, params = {}) {
+  async getUrl(pathName, params = {}) {
     try{
-      const { ip, port } = this.serviceRegistry.get('wallets_service', '1');
+      const { ip, port } = await this.serviceRegistry.get('wallets_service', '1');
       const host = `http://${ip}:${port}`;
       const originalPath = this.pathes[pathName];
       return replacingPathParams(host, originalPath, params);
@@ -34,9 +65,9 @@ class WalletService {
     }
   }
 
-  fetchData(pathName, params = {}, body = {}) {
+  async fetchData(pathName, params = {}, body = {}) {
 
-    const config = this.getUrl(pathName, params);
+    const config = await this.getUrl(pathName, params);
 
     if(config === 404)
       return false;

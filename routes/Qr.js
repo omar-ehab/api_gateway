@@ -8,7 +8,7 @@ class QrRoutes {
     }
     
     routes = () => {
-    this.router.post('/',this.controller.store);
+    this.router.post('/create',this.controller.store);
   
       return this.router;
     }
